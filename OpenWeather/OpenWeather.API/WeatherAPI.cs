@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using OpenWeather.Domain;
 using System;
@@ -32,7 +33,7 @@ namespace OpenWeather.API
         }
 
         [FunctionName("Check")]
-        public async Task<IActionResult> CheckAsync([HttpTrigger("get")] HttpRequest request, ILogger logger)
+        public async Task<IActionResult> CheckAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest request, ILogger logger)
         {
             var date = request.Query["date"];
             var time = request.Query["time"];
